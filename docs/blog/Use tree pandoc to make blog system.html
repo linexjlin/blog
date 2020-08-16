@@ -123,7 +123,7 @@
   -v                    --version
   -h                    --help</code></pre>
 <h2 id="generate-index.html">Generate Index.html</h2>
-<pre><code>tree -D -H &quot;&quot; -C -a -t -r -P &quot;*.html&quot; --noreport  -T &quot;Blog of line&quot;  | sed &#39;s/&lt;p class=&quot;VERSION&quot;&gt;/&lt;p hidden&gt;/g&#39; &gt;index.html</code></pre>
+<pre><code>tree -D -H &quot;&quot; -C -a -t -r -P &quot;*.html&quot; --noreport  -T &quot;Blog of line&quot; --timefmt &#39;%Y-%m-%d %H:%M:%S&#39; | sed &#39;s/&lt;p class=&quot;VERSION&quot;&gt;/&lt;p hidden&gt;/g&#39; &gt;index.html</code></pre>
 <p>Full usage of tree</p>
 <pre><code>usage: tree [-acdfghilnpqrstuvxACDFJQNSUX] [-H baseHREF] [-T title ]
         [-L level [-R]] [-P pattern] [-I pattern] [-o filename] [--version]
