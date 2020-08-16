@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Integrate git commit message to go binary file</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://ipfs.ee/ipfs/QmNvPEGbSjXHRZdDuqCRj8SVid8xaDHLZoXzv4tYQNeBjT/github-pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Integrate git commit message to go binary file</h1>
+</header>
+<h2 id="install-go-bindata">Install <a href="github.com/jteeuwen/go-bindata">go-bindata</a></h2>
+<pre><code>go get -u github.com/jteeuwen/go-bindata/...</code></pre>
+<h2 id="bind-git-version-log-file-to-binary">bind git version log file to binary</h2>
+<p>like this command</p>
+<pre><code>go-bindata .git/logs</code></pre>
+<p>in Makefile we change this code to</p>
+<pre><code>GOCMD=go
+GOBUILD=$(GOCMD) build
+GOCLEAN=$(GOCMD) clean
+GOTEST=$(GOCMD) test
+GOGET=$(GOCMD) get
+VERSIONINFO=&quot;.git/logs&quot;
+BINDCMD=&quot;go-bindata&quot;
+UPX=upx
+BINARY_NAME=tbot
+
+all: build
+build:
+        $(BINDCMD) $(VERSIONINFO)
+        $(GOBUILD) -o $(BINARY_NAME) -v
+
+release:
+        $(BINDCMD) $(VERSIONINFO)
+        $(GOBUILD) -ldflags=&quot;-s -w&quot; -o $(BINARY_NAME) -v
+        $(UPX) $(BINARY_NAME)
+clean:
+        $(GOCLEAN)
+        rm -f $(BINARY_NAME)</code></pre>
+<p>after run this code it generate a bindata.go with binary data in it.</p>
+<h2 id="ingore-bindata.go">Ingore bindata.go</h2>
+<p>add a new line to .gitignore file like below</p>
+<pre><code># Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+nconfig
+tbot
+config.yaml
+bindata.go</code></pre>
+<h2 id="add-version-flag">Add version flag</h2>
+<p>like below:</p>
+<pre><code>const (
+        VERSION_FILE = &quot;.git/logs/HEAD&quot;
+)
+
+func main() {
+        runtime.GOMAXPROCS(runtime.NumCPU())
+        version := flag.Bool(&quot;version&quot;, false, &quot;&quot;)
+        c := flag.String(&quot;conf&quot;, &quot;config.yaml&quot;, &quot;-conf config.yaml&quot;)
+        flag.Parse()
+        if *version {
+                data, _ := Asset(VERSION_FILE)
+                fmt.Println(string(data))
+                return
+        }
+...</code></pre>
+<p>Here is the last effect:</p>
+<p><img src="https://ipfs.ee/ipfs/QmUR8TAcMvR5Jzws3VTm5dSCGzFMMuTS8B6dRoza4WctFh/2735624c-7ec4-423f-aa3b-4eac1d7f8fc1.png" /></p>
+<p>after run <code>make build</code> or <code>make release</code> command, the commit messages will auto add to to binary file.</p>
+</body>
+</html>
