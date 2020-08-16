@@ -109,7 +109,7 @@ pandoc [OPTIONS] [FILES]
 
 ## Generate Index.html
 ```
-tree -D -H "" -C -a -t -r -P "*.html" --noreport  -T "Blog of line"  | sed 's/<p class="VERSION">/<p hidden>/g' >index.html
+tree -D -H "" -C -a -t -r -P "*.html" --noreport  -T "Blog of line" --timefmt '%Y-%m-%d %H:%M:%S' | sed 's/<p class="VERSION">/<p hidden>/g' >index.html
 ```
 
 Full usage of tree
