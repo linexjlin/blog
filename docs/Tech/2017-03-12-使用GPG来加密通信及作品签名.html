@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2017-03-12-使用GPG来加密通信及作品签名</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://ipfs.ee/ipfs/QmNvPEGbSjXHRZdDuqCRj8SVid8xaDHLZoXzv4tYQNeBjT/github-pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2017-03-12-使用GPG来加密通信及作品签名</h1>
+</header>
+<h2 id="概述">概述</h2>
+<ol type="1">
+<li>用于在不安全的网络条件下(通信拦截, 身份伪造)，用来让明我就是我。 如果这条短信（邮件,程序）确实是我出自我手。</li>
+<li>GPG(RSA) 作用在于1).建立互相信任的通信线路。 2).发布可信任的作品</li>
+<li>GPG是RSA 算法的一个应用</li>
+<li>由公钥，私钥组成。私钥，公钥成对使用，公钥可以由私钥生成。公钥可以用来验证签名。</li>
+</ol>
+<h2 id="生成自己的密钥">生成自己的密钥</h2>
+<p>根据提示填写不知道的默认 <code>gpg --gen-key</code></p>
+<h2 id="列出所有密钥">列出所有密钥</h2>
+<p><code>gpg --list-keys</code></p>
+<h2 id="删除指定密钥">删除指定密钥</h2>
+<p><code>gpg --delete-key [用户ID]</code></p>
+<h2 id="生成文本公钥-私钥">生成文本公钥, 私钥</h2>
+<p><code>gpg --armor --output public-key.txt --export [用户ID]</code> <code>gpg --armor --output private-key.txt --export-secret-keys</code></p>
+<h2 id="通信方法">通信方法</h2>
+<p>比如给用户A发送加密文件 hello.txt 1. 先导入用户A的公钥ID userA_pub_key.asc <code>gpg --import userA_pub_key.asc</code> 1. 查看获得userA的ID <code>gpg --list-key</code> 查到userA的ID为 USERA 1. 用userA的公钥加密hello.txt <code>gpg --recipient USERA --output hello.en.txt --encrypt hello.txt</code> 1. 用常用方式可以是不安全的邮件，IM等发送 hello.en.txt 文件 1. 用户A收到后解密 <code>gpg --decrypt hello.en.txt</code> 或者 <code>gpg hello.en.txt</code> 解密的时候需要输入使用私钥， 私钥的使用的需要输入当时设置的密码。</p>
+<h2 id="作品签名与签名校验">作品签名与签名校验</h2>
+<h3 id="签名与作品放在一起">签名与作品放在一起</h3>
+<p><code>gpg --sign artwork.txt</code> 或者 <code>gpg --clearsign artwork.txt</code> 这一步也要输入密码 ### 签名作品分开 <code>gpg --detach-sign art.exe</code> 或者 <code>gpg --armor --detach-sign art.exe</code> ### 校验 <code>gpg --verify art.txt.asc</code> 或者 <code>gpg --verify art.txt.asc art.txt</code></p>
+<h2 id="先签名后加密">先签名后加密</h2>
+<p><code>gpg --local-user [发信者ID] --recipient [接收者ID] --armor --sign --encrypt art.txt</code></p>
+</body>
+</html>

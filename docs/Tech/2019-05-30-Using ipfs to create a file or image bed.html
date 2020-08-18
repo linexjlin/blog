@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2019-05-30-Using ipfs to create a file or image bed</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://ipfs.ee/ipfs/QmNvPEGbSjXHRZdDuqCRj8SVid8xaDHLZoXzv4tYQNeBjT/github-pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2019-05-30-Using ipfs to create a file or image bed</h1>
+</header>
+<h2 id="run-ipfs-ipfs-conf">run ipfs IPFS conf</h2>
+<pre><code>ipfs init 
+ipfs daemon</code></pre>
+<h2 id="caddy.conf">caddy.conf</h2>
+<pre><code>ipfs.ee {
+        header / Access-Control-Allow-Origin *
+
+        rewrite {
+                r /ipfs/(.*)/(.*)
+                to /ipfs/{1}
+        }
+
+        proxy /ipfs 127.0.0.1:8080 {
+                transparent
+        }
+
+        proxy /api/v0/add 127.0.0.1:5001 {
+                transparent
+        }
+
+        log /var/log/caddy/ipfs.ee.log
+}</code></pre>
+<h2 id="use-sharex-to-automative-upload-screenshot-or-file">Use ShareX to automative upload screenshot or file</h2>
+<p><img src="https://ipfs.ee/ipfs/QmVZiSJAawVARErjxACEbUVUqUmgd3rXka9nzttPYhPgXM/2019-05-30_21-24-12.png" /> <img src="https://ipfs.ee/ipfs/QmRxaucuukw9uygTujqRKvGMDNKaznY5J8ck1hDQjbQAW8/2019-05-30_21-24-25.png" /></p>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2017-02-14-申请alphassl通配符(野卡)ssl证书并在nginx下配置使用</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://ipfs.ee/ipfs/QmNvPEGbSjXHRZdDuqCRj8SVid8xaDHLZoXzv4tYQNeBjT/github-pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2017-02-14-申请alphassl通配符(野卡)ssl证书并在nginx下配置使用</h1>
+</header>
+<h2 id="流程">流程</h2>
+<ol type="1">
+<li><p>生成csr 和 key <code>openssl req -new -newkey rsa:2048 -sha256 -nodes -out example_com.csr -keyout example_com.key -subj "/C=CN/ST=Beijing/L=Beijing/O=Example Inc./OU=Web Security/CN=*.example.com"</code> 得到 example_com.csr example_com.key.</p></li>
+<li><p>将CSR提交给<a href="https://assl.loovit.net/">alphassl</a>， 得到 crt证书: example_com.crt</p></li>
+<li><p>补全crt 证书 由于手机上没有预留alphassl的中级证书， 我们需要将中级证书附加到example_com.crt 后面。 中级证书在邮件里有， 在<a href="https://www.alphassl.com/support/install-root-certificate.html">这里</a> 也可以找到。</p></li>
+<li><p>验证crt与key 格式是否一样</p></li>
+</ol>
+<pre><code>openssl x509 -noout -modulus -in example_com.crt | openssl md5
+openssl rsa -noout -modulus -in example_com.key | openssl md5</code></pre>
+<p>key and crt md5sum must be the same. These files can be configured in directory.</p>
+<h2 id="nginx-的配置">nginx 的配置</h2>
+<pre><code>    server {
+        listen       443 ssl;
+        server_name  eg.example.com;
+
+        ssl_certificate      /etc/nginx/ssl/example_com.pem;
+        ssl_certificate_key  /etc/nginx/ssl/example_com.key;
+
+
+        ssl_session_cache    shared:SSL:1m;
+        ssl_session_timeout  5m;
+
+        ssl_ciphers  HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers  on;
+        error_log /var/log/nginx/example.error.log;
+
+        location / {
+            autoindex on;
+            root /home/d/dir;
+        }
+    }</code></pre>
+</body>
+</html>

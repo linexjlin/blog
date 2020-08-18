@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2019-01-08-Using poste.io to build a mail server</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://ipfs.ee/ipfs/QmNvPEGbSjXHRZdDuqCRj8SVid8xaDHLZoXzv4tYQNeBjT/github-pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2019-01-08-Using poste.io to build a mail server</h1>
+</header>
+<h1 id="set-ptr">Set PTR</h1>
+<p>PTR or reverse DNS or rDNS tell the domain name of your IP, you may set this record in your VPS console like this <img src="https://ipfs.ee/ipfs/QmR5Fi87zhY4CSiZM7snJzuumZveNFxAo5mwZP6fVAkj1U?name=2019-01-08_12-00-16.png" /> or if it is not supported by your ISP just submmit a ticket to apply it.</p>
+<h1 id="dns-records">DNS Records</h1>
+<table>
+<thead>
+<tr class="header">
+<th>type</th>
+<th>record</th>
+<th>value</th>
+<th>ttl</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>@</td>
+<td>130.255.76.237</td>
+<td>600</td>
+</tr>
+<tr class="even">
+<td>A</td>
+<td>mail</td>
+<td>130.255.76.237</td>
+<td>600</td>
+</tr>
+<tr class="odd">
+<td>A</td>
+<td>www</td>
+<td>130.255.76.237</td>
+<td>600</td>
+</tr>
+<tr class="even">
+<td>cname</td>
+<td>smtp</td>
+<td>130.255.76.237</td>
+<td>600</td>
+</tr>
+<tr class="odd">
+<td>cname</td>
+<td>pop</td>
+<td>130.255.76.237</td>
+<td>600</td>
+</tr>
+<tr class="even">
+<td>cname</td>
+<td>imap</td>
+<td>130.255.76.237</td>
+<td>600</td>
+</tr>
+<tr class="odd">
+<td>mx</td>
+<td>@</td>
+<td>mail.dba.pw</td>
+<td>600</td>
+</tr>
+<tr class="even">
+<td>text</td>
+<td>@</td>
+<td>“v=spf1 mx ~all”</td>
+<td>600</td>
+</tr>
+<tr class="odd">
+<td>text</td>
+<td>_dmarc.dba.pw</td>
+<td>“v=DMARC1; p=none; rua=mailto:dmarc-reports@dba.pw”</td>
+<td>600</td>
+</tr>
+<tr class="even">
+<td>text</td>
+<td>s20190305648._domainkey.dba.pw</td>
+<td>“xxxx”</td>
+<td>600</td>
+</tr>
+</tbody>
+</table>
+<h1 id="start-poste.io-docker">start poste.io docker</h1>
+<pre><code>docker run \
+-p 25:25 \
+-p 80:80 \
+-p 110:110 \
+-p 143:143 \
+-p 443:443 \
+-p 587:587 \
+-p 993:993 \
+-p 995:995 \
+-v /etc/localtime:/etc/localtime:ro \
+-v /var/maildata:/data \
+--name &quot;mail&quot; \
+-h &quot;mail.dba.pw&quot; \
+-t analogic/poste.io</code></pre>
+<h1 id="get-certificates-from-lets-encrypt">Get certificates from “Let’s encrypt”</h1>
+<p>Loin to admin panel via like https://mail.dba.pw go to like https://mail.dba.pw/admin/le/ <img src="https://ipfs.ee/ipfs/QmYtkatZP198mzdWHQanwL1WV7ripgWGvD1zDCD9dmuyc8?name=2019-01-08_12-10-06.png" /></p>
+<h1 id="webmail">Webmail</h1>
+<p>https://mail.dba.pw/webmail <img src="https://ipfs.ee/ipfs/QmYzt99T3YrFVWZL1LusobNSbTcdjshAq3h8rEQ4qRgBBG?name=2019-01-08_13-07-09.png" /> <img src="https://ipfs.ee/ipfs/QmQAHK1jfTp8hPvfzQw7qmSHt7jvNeXvmxQVQVtUEDCZaC?name=2019-01-08_13-07-58.png" /> <img src="https://ipfs.ee/ipfs/QmciyQEY1eSSD7WrQGFVSX9nS1XUAKN6q2BDQyxi2JxBd4?name=2019-01-08_13-08-16.png" /></p>
+<h1 id="admin-panel">Admin panel</h1>
+<p>https://mail.dba.pw/admin/login <img src="https://ipfs.ee/ipfs/QmejZDNKrKfmukQW4ydRhgqBsz2HHrtVbDktYf1HTnJ1qg?name=2019-01-08_13-09-34.png" /> <img src="https://ipfs.ee/ipfs/QmWnCaPXg9nFGjpsNjyT78BR8fa9c2BNLaybgnSkRNy2MZ?name=2019-01-08_13-09-11.png" /></p>
+<h1 id="client">client</h1>
+<h2 id="pop">pop</h2>
+<p>Note: Use POP protocol will keep all mails in local machine and delete from server side. server: pop.dba.pw:110 username: line@dba.pw connection security: starttls <img src="https://ipfs.ee/ipfs/QmdciuTv8kPQ1F7s6LMKz7DYadGpyggsazZiXeCQeJk43D?name=2019-01-08_11-33-09.png" /> ## imap server: imap.dba.pw:143 username: line@dba.pw <img src="https://ipfs.ee/ipfs/QmRBMzdq4L2EEA3HfzJ9rboiy5HsG18qgKrrGS6dbCPW41?name=2019-01-08_11-44-08.png" /> ## smtp serve: smtp.dba.pw:587 username: line@dba.pw connection security: startttls <img src="https://ipfs.ee/ipfs/QmUVSUtQA9n6698juJw1GASbNsm94z7GJbR4Mugai54f8H?name=2019-01-08_11-30-19.png" /></p>
+<h1 id="refer">Refer</h1>
+<p>refer1: https://qing.su/article/139.html refer2: https://poste.io/doc/client-settings</p>
+</body>
+</html>
