@@ -1,0 +1,36 @@
+## New version of GCC
+
+```
+gcc --version
+yum update
+yum install scl-utils
+yum -y install centos-release-scl
+yum -y install devtoolset-8-gcc devtoolset-8-gcc-c++ devtoolset-8-binutils
+scl enable devtoolset-8 bash
+gcc --version
+```
+
+
+## Install python27
+```
+python -V
+yum install python27
+scl enable python27 bash
+python -V
+```
+
+## Install python35
+```
+yum install rh-python35
+scl enable rh-python35 bash
+```
+
+## Compile new version vim with python support
+```
+cd /tmp && git clone https://github.com/vim/vim.git && cd vim
+./configure --enable-pythoninterp
+make && make install
+```
+
+
+
