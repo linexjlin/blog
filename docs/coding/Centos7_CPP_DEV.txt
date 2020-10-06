@@ -1,0 +1,10 @@
+# vim
+
+# plugins of vim
+
+
+#clangd
+https://snapcraft.io/install/clangd/centos
+
+## refer
+https://barriery.world/2019/08/11/tabnine-vim%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/

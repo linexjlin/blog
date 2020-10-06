@@ -1,0 +1,5 @@
+# TabNine in Vim
+![vim with phython3 support](https://ipfs.ee/ipfs/QmRNFgd9Kvs3pofUcK8M4G6LRXt8JsaR5T6f2vmtCj8uok/874c8182-c4ca-4b57-b914-a4d3a0454d4e.png)
+![disable YourCompleme](https://ipfs.ee/ipfs/Qmb7VMwYF4se2NXpsRsgHBAemtq8ZEFqD19DZoRaTdM1B8/6b538376-d44b-4ce8-b6fe-f9852f5f8b9d.png)
+![add plugin](https://ipfs.ee/ipfs/Qmeh8JmgCWPcq67WZrvvp37ZCF5zaavEQ28QwKyPkr8zoJ/6a4df529-a678-4707-951e-cb0f11f88dec.png)
+![semantic completion](https://ipfs.ee/ipfs/QmYzh75VrSKjfuoNb81zdP7GrNF2eKB4B5qd4yUVyg8AN4/c70a47ad-ea54-4394-b8b6-db51a5323e89.png)
