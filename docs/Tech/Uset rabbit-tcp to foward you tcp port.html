@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Uset rabbit-tcp to foward you tcp port</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://ipfs.ee/ipfs/QmNvPEGbSjXHRZdDuqCRj8SVid8xaDHLZoXzv4tYQNeBjT/github-pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Uset rabbit-tcp to foward you tcp port</h1>
+</header>
+<h2 id="rabbit-tcp"><a href="https://github.com/ihciah/rabbit-tcp">Rabbit-tcp</a></h2>
+<p>Rabbit-tcp is a multi connection TCP fowwarder.</p>
+<h2 id="on-server-side">on server side</h2>
+<pre><code>./rabbit-linux-amd64 -mode s -password &quot;xxxx&quot; -rabbit-addr :1122 -verbose 5</code></pre>
+<h2 id="on-client-side">on client side</h2>
+<pre><code>./rabbit-linux-amd64 -dest &quot;test.linkown.com:80&quot; -listen :3333 -password line -rabbit-addr 155.235.30.17:1122 -verbose 5</code></pre>
+</body>
+</html>

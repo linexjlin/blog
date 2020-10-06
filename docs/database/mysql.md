@@ -1,1 +1,0 @@
-grant replication slave on *.* to 'sync'@'%' identified by 'rot.yh0ng';

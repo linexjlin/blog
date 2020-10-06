@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>New Text Document</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://ipfs.ee/ipfs/QmNvPEGbSjXHRZdDuqCRj8SVid8xaDHLZoXzv4tYQNeBjT/github-pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">New Text Document</h1>
+</header>
+<p>CFLAGS=“-I${BUILD_LIBS}/include -Wno-error=unused-value”</p>
+<pre><code>yum install -y http://files.freeswitch.org/freeswitch-release-1-6.noarch.rpm epel-release
+yum install -y git alsa-lib-devel autoconf automake bison broadvoice-devel bzip2 curl-devel db-devel e2fsprogs-devel flite-devel g722_1-devel gcc-c++ gdbm-devel gnutls-devel ilbc2-devel ldns-devel libcodec2-devel libcurl-devel libedit-devel libidn-devel libjpeg-devel libmemcached-devel libogg-devel libsilk-devel libsndfile-devel libtheora-devel libtiff-devel libtool libuuid-devel libvorbis-devel libxml2-devel lua-devel lzo-devel mongo-c-driver-devel ncurses-devel net-snmp-devel openssl-devel opus-devel pcre-devel perl perl-ExtUtils-Embed pkgconfig portaudio-devel postgresql-devel python26-devel python-devel soundtouch-devel speex-devel sqlite-devel unbound-devel unixODBC-devel wget which yasm zlib-devel
+./bootstrap.sh
+./configure -C --enable-portable-binary --enable-sctp --prefix=/usr --localstatedir=/var --sysconfdir=/etc --with-gnu-ld --with-openssl --enable-core-odbc-support --enable-zrtp --enable-core-pgsql-support --enable-static-v8 --disable-parallel-build-v8 --disable-selinux
+make -j install
+make -j cd-sounds-install
+make -j cd-moh-install
+</code></pre>
+<p>refer</p>
+<p>https://www.ahfesco.com.cn/affairs/Article.asp?id=2356</p>
+</body>
+</html>
