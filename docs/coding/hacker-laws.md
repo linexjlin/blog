@@ -1,4 +1,3 @@
-```
 [![Build Status](https://travis-ci.org/nusr/hacker-laws-zh.svg?branch=master)](https://travis-ci.org/nusr/hacker-laws-zh)
 
 [hacker-laws](https://github.com/dwmkerr/hacker-laws) 的的中文翻译。
@@ -945,4 +944,3 @@ KISS 原则指明了如果大多数的系统能够保持简单而非复杂化，
 
 随意给 [hacker-laws](https://github.com/dwmkerr/hacker-laws) 和 [hacker-laws-zh](https://github.com/nusr/hacker-laws-zh) 提 [Issue](https://github.com/dwmkerr/hacker-laws/issues) 或者 [Pull Request](https://github.com/dwmkerr/hacker-laws/pulls)。
 
-```
