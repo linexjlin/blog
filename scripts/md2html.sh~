@@ -1,6 +1,6 @@
 #!/bin/bash
 #$CSS="https://ipfs.ee/ipfs/QmNvPEGbSjXHRZdDuqCRj8SVid8xaDHLZoXzv4tYQNeBjT/github-pandoc.css"
-CSS="https://ipfs.ee/ipfs/QmVxxHqKMu2HsTJYjxABoDfZjLtGzdAUsaroYvz3fQy29x/gh-pandoc.css"
+CSS="https://gist.githubusercontent.com/forivall/7d5a304a8c3c809f0ba96884a7cf9d7e/raw/62b874d98f72005d18b9b2a05d3be6815959b51b/gh-pandoc.css"
 #CSS="https://ipfs.ee/ipfs/Qmf9Lm1Ue1E2Q7stLpLE4tJrVzXaToBLuYGRAoKP7VqeA5/pandoc.css"
 #CSS="github-pandoc.css"
 #CSS="https://ipfs.ee/ipfs/QmbFohusbH3fWPKMUe7U8vLjeQckTtBPHrUcP3ioedeXj7/newsprint.css"

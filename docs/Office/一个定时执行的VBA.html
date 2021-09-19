@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>2018-09-30-golang1.11-YouCompleteMe-不工作</title>
+  <title>一个定时执行的VBA</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -21,20 +21,36 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">2018-09-30-golang1.11-YouCompleteMe-不工作</h1>
+<h1 class="title">一个定时执行的VBA</h1>
 </header>
-<h1 id="解决方法">解决方法</h1>
-<pre><code>cd ~/.vim/bundle
-git clone git@github.com:Valloric/YouCompleteMe.git
-cd YouCompleteMe
-git submodule update --init --recursive
-python install.py --go-completer
-cd third_party/ycmd/third_party/
-rm -rf gocode
-git clone git@github.com:mdempsky/gocode.git
-cd gocode
-go mod init
-go build .</code></pre>
-<p>参考: https://github.com/Valloric/YouCompleteMe/issues/3074</p>
+<h2 id="方法">方法</h2>
+<pre><code>Private Declare Function timeGetTime Lib &quot;winmm.dll&quot; () As Long
+
+
+Sub delay(T As Long)
+    Dim time1 As Long
+    time1 = timeGetTime
+    Do
+        DoEvents
+    Loop While timeGetTime - time1 &lt; T
+End Sub
+
+Sub AutoUpdate()
+    Dim i As Integer
+    For i = 1 To 333
+     Worksheets(&quot;Sheet1&quot;).Cells(i, 1) = i
+     Call delay(5000)
+    Next
+
+
+End Sub
+
+Private Sub CommandButton1_Click()
+    Call AutoUpdate
+End Sub</code></pre>
+<h2 id="doevents">DoEvents</h2>
+<p>unblock</p>
+<h2 id="refer">Refer</h2>
+<p>https://blog.csdn.net/xuemanqianshan/article/details/104873772/?utm_medium=distribute.pc_relevant.none-task-blog-title-6&amp;spm=1001.2101.3001.4242 https://blog.csdn.net/STR_Liang/article/details/104627060</p>
 </body>
 </html>

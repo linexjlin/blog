@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>2018-09-30-golang1.11-YouCompleteMe-不工作</title>
+  <title>doh(dns over https)收集</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -21,20 +21,11 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">2018-09-30-golang1.11-YouCompleteMe-不工作</h1>
+<h1 class="title">doh(dns over https)收集</h1>
 </header>
-<h1 id="解决方法">解决方法</h1>
-<pre><code>cd ~/.vim/bundle
-git clone git@github.com:Valloric/YouCompleteMe.git
-cd YouCompleteMe
-git submodule update --init --recursive
-python install.py --go-completer
-cd third_party/ycmd/third_party/
-rm -rf gocode
-git clone git@github.com:mdempsky/gocode.git
-cd gocode
-go mod init
-go build .</code></pre>
-<p>参考: https://github.com/Valloric/YouCompleteMe/issues/3074</p>
+<h2 id="台湾">台湾</h2>
+<p>https://dns.twnic.tw/dns-query</p>
+<h2 id="dns.sb">dns.sb</h2>
+<p>https://doh.dns.sb/dns-query</p>
 </body>
 </html>

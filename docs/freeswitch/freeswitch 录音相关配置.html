@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>freeswitch 录音相关配置</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://ipfs.ee/ipfs/QmVxxHqKMu2HsTJYjxABoDfZjLtGzdAUsaroYvz3fQy29x/gh-pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">freeswitch 录音相关配置</h1>
+</header>
+<h2 id="相关参数">相关参数</h2>
+<p>../freeswitch/conf/dialplan/default.xml <action application="log" data="======record test====="/></p>
+<p><action application="record_session" data="$${base_dir}/recordings/archive/${strftime(%Y-%m-%d-%H-%M-%S)}_${destination_number}_${caller_id_number}.wav"/></p>
+<p><action application="log" data="======record test====="/> //最小录音时间，这里是1秒，一般3秒以上录音才有意义 <action application="set" data="RECORD_MIN_SEC=2"/> Continue Recording on Transfer //是否接通后才进行录音<br />
+<action application="set" data="media_bug_answer_req=true"/> //只录“读” 方向的录音， 是指FreeSWITCH听到的声音 <action application="set" data="RECORD_READ_ONLY=true"/> <action application="set" data="recording_follow_transfer=true"/> <action application="record_session" data="/tmp/${strftime(%Y-%m-%d-%H-%M-%S)}_${destination_number}_${caller_id_number}"/></p>
+<h2 id="实际使用">实际使用</h2>
+<p><action application="log" data="======record test====="/> <action application="set" data="RECORD_MIN_SEC=2"/> <action application="set" data="media_bug_answer_req=true"/> <action application="set" data="RECORD_READ_ONLY=true"/> <action application="set" data="recording_follow_transfer=true"/> <action application="record_session" data="/tmp/${strftime(%Y-%m-%d-%H-%M-%S)}_${destination_number}_${caller_id_number}"/></p>
+<p>refer: https://freeswitch.org/confluence/display/FREESWITCH/mod_dptools%3A+record_session http://www.sevenmu.cn/articles/2019/12/27/1577435308772.html</p>
+</body>
+</html>
